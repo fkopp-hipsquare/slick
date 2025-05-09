@@ -1,8 +1,6 @@
 @charset 'UTF-8';
 .slick-slide {
   margin: 0px 1em;
-  transition: all ease-in-out 0.3s;
-  opacity: 0.2;
 }
 .slick-slide img {
   width: 100%;
