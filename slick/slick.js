@@ -1394,12 +1394,8 @@
                     return (val >= 0) && (val < _.slideCount);
                 });
 
-        _.$slides.add(_.$slideTrack.find('.slick-cloned')).attr({
-            'aria-hidden': 'true',
-            'tabindex': '-1'
-        }).find('a, input, button, select').attr({
-            'tabindex': '-1'
-        });
+        _.$slides
+            .add(_.$slideTrack.find(".slick-cloned")).each(function (i, element) { setAriaHidden($(element), true)})
 
         if (_.$dots !== null) {
             _.$slides.not(_.$slideTrack.find('.slick-cloned')).each(function(i) {
@@ -2443,7 +2439,7 @@
             if (_.options.infinite === true) {
 
                 if (index >= centerOffset && index <= (_.slideCount - 1) - centerOffset) {
-                    _.$slides
+                    var $activeSlides = _.$slides
                         .slice(index - centerOffset + evenCoef, index + centerOffset + 1)
                         .addClass('slick-active')
                     setAriaHidden($activeSlides, false);
@@ -2451,7 +2447,7 @@
                 } else {
 
                     indexOffset = _.options.slidesToShow + index;
-                    allSlides
+                    var $activeSlides = allSlides
                         .slice(indexOffset - centerOffset + 1 + evenCoef, indexOffset + centerOffset + 2)
                         .addClass('slick-active')
                     setAriaHidden($activeSlides, false);
@@ -2481,7 +2477,7 @@
 
             if (index >= 0 && index <= (_.slideCount - _.options.slidesToShow)) {
 
-                _.$slides
+                var $activeSlides = _.$slides
                     .slice(index, index + _.options.slidesToShow)
                     .addClass('slick-active')
                 setAriaHidden($activeSlides, false);
@@ -2495,7 +2491,7 @@
 
                 if (_.options.slidesToShow == _.options.slidesToScroll && (_.slideCount - index) < _.options.slidesToShow) {
 
-                    allSlides
+                    var $activeSlides = allSlides
                         .slice(indexOffset - (_.options.slidesToShow - remainder), indexOffset + remainder)
                         .addClass('slick-active')
                     setAriaHidden($activeSlides, false);
@@ -3050,7 +3046,7 @@
             _.$liveRegion.remove();
         }
 
-        const $slides = _.$slides
+        var $slides = _.$slides
             .removeClass('slick-slide slick-active slick-visible slick-current')
             .css('width', '');
         setAriaHidden($slides, true);
